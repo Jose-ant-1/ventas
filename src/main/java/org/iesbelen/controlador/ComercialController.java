@@ -6,6 +6,7 @@ import org.iesbelen.service.ComercialService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,5 +29,14 @@ public class ComercialController {
         model.addAttribute("listaComerciales",listaComerciales);
         return "comerciales";
     }
+
+    @GetMapping("/comerciales/{id}")
+    public String detalle(Model model, @PathVariable Integer id) {
+
+    Comercial comercial = comercialService.one(id);
+    model.addAttribute("comercial",comercial);
+    return "detalle-comercial";
+    }
+
 
 }
