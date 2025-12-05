@@ -30,4 +30,16 @@ public class ComercialService {
 
     }
 
+    public void newComercial (Comercial comercial) {
+        comercialDAO.create(comercial);
+    }
+
+    public void replaceComercial  (Comercial comercial) {
+        comercialDAO.update(comercial);
+    }
+
+    public void deleteComercial(Integer id) {
+        comercialDAO.delete(id);
+    }
+
 }
