@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Comercial</title>
+    <title>Editar Cliente</title>
     <style>
         .clearfix::after {
             content: "";
@@ -14,10 +14,10 @@
 <body>
 
 <div id="contenedora" style="float:none; margin: 0 auto;width: 900px;" >
-    <form  th:action="@{/comerciales/editar/__${comercial.id}__}" th:object="${comercial}" method="post" >
+    <form  th:action="@{/clientes/editar/__${cliente.id}__}" th:object="${cliente}" method="post" >
         <div class="clearfix">
             <div style="float: left; width: 50%">
-                <h1>Editar Comercial</h1>
+                <h1>Editar Cliente</h1>
             </div>
             <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
                 <div style="position: absolute; left: 39%; top : 39%;">
@@ -68,10 +68,19 @@
 
         <div style="margin-top: 6px;" class="clearfix">
             <div style="float: left;width: 50%">
-                <label for="comision">Comisión</label>
+                <label for="ciudad">Ciudad</label>
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input id="comision" th:field="*{comision}"/>
+                <input id="ciudad" th:field="*{ciudad}"/>
+            </div>
+        </div>
+
+        <div style="margin-top: 6px;" class="clearfix">
+            <div style="float: left;width: 50%">
+                <label for="categoria">Categoria</label>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input id="categoria" th:field="*{categoria}"/>
             </div>
         </div>
 

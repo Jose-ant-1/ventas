@@ -2,8 +2,11 @@ package org.iesbelen.modelo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comercial {
 
 	private int id;
@@ -12,13 +15,4 @@ public class Comercial {
 	private String apellido2;
 	private float comision;
 
-    public Comercial() {}
-
-    public Comercial(int id,  String nombre, String apellido1, String apellido2, float comision) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
-        this.comision = comision;
-    }
 }

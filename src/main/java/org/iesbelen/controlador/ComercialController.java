@@ -63,7 +63,7 @@ public class ComercialController {
         return new RedirectView("/comerciales");
     }
 
-    @PostMapping("/comerciales/borrar/{id}")
+    @PostMapping("/borrar/{id}")
     public RedirectView submitBorrar(@PathVariable Integer id) {
         comercialService.deleteComercial(id);
         return new RedirectView("/comerciales");
