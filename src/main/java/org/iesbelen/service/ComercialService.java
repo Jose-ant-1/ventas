@@ -1,19 +1,22 @@
 package org.iesbelen.service;
 
 import org.iesbelen.dao.ComercialDAO;
+import org.iesbelen.dao.PedidoDAO;
 import org.iesbelen.modelo.Comercial;
+import org.iesbelen.modelo.PedidoDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ComercialService {
 
     private ComercialDAO comercialDAO;
+    private PedidoDAO pedidoDAO;
 
-    public ComercialService(ComercialDAO comercialDAO) {
+    public ComercialService(ComercialDAO comercialDAO, PedidoDAO pedidoDAO) {
         this.comercialDAO = comercialDAO;
+        this.pedidoDAO = pedidoDAO;
     }
 
     public List<Comercial> listAll() {
@@ -21,13 +24,7 @@ public class ComercialService {
     }
 
     public Comercial one(Integer id) {
-        Optional<Comercial> optCom = comercialDAO.find(id);
-        if (optCom.isPresent()) {
-            return optCom.get();
-        }  else {
-            return null;
-        }
-
+        return comercialDAO.find(id).orElse(null);
     }
 
     public void newComercial (Comercial comercial) {
@@ -40,6 +37,10 @@ public class ComercialService {
 
     public void deleteComercial(Integer id) {
         comercialDAO.delete(id);
+    }
+
+    public List<PedidoDTO> obtenerPedidosPorComercial(Integer id) {
+        return pedidoDAO.findPorComercialConCliente(id);
     }
 
 }

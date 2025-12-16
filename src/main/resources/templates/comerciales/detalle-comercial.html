@@ -1,12 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalles de comercial</title>
-</head>
-<body>
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Detalle Comercial</title>
@@ -16,7 +9,16 @@
             display: block;
             clear: both;
         }
-
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -27,14 +29,11 @@
             <h1>Detalle Comercial</h1>
         </div>
         <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
-
             <div style="position: absolute; left: 39%; top : 39%;">
-
                 <form action="/comerciales" >
                     <input type="submit" value="Volver" />
                 </form>
             </div>
-
         </div>
     </div>
 
@@ -43,50 +42,68 @@
     </div>
 
     <div style="margin-top: 6px;" class="clearfix">
-        <div style="float: left;width: 50%">
-            <label>Código</label>
-        </div>
+        <div style="float: left;width: 50%"><label>Código</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.id}" value="id" readonly="readonly"/>
+            <input th:value="${comercial.id}" readonly="readonly"/>
         </div>
     </div>
     <div style="margin-top: 6px;" class="clearfix">
-        <div style="float: left;width: 50%">
-            <label>Nombre</label>
-        </div>
+        <div style="float: left;width: 50%"><label>Nombre</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.nombre}" value="nombre" readonly="readonly"/>
+            <input th:value="${comercial.nombre}" readonly="readonly"/>
         </div>
     </div>
     <div style="margin-top: 6px;" class="clearfix">
-        <div style="float: left;width: 50%">
-            <label>Apellido 1</label>
-        </div>
+        <div style="float: left;width: 50%"><label>Apellido 1</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.apellido1}" value="apellido1" readonly="readonly"/>
+            <input th:value="${comercial.apellido1}" readonly="readonly"/>
         </div>
     </div>
     <div style="margin-top: 6px;" class="clearfix">
-        <div style="float: left;width: 50%">
-            <label>Apellido 2</label>
-        </div>
+        <div style="float: left;width: 50%"><label>Apellido 2</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.apellido2}" value="apellido2" readonly="readonly"/>
+            <input th:value="${comercial.apellido2}" readonly="readonly"/>
         </div>
     </div>
     <div style="margin-top: 6px;" class="clearfix">
-        <div style="float: left;width: 50%">
-            <label>comisión</label>
-        </div>
+        <div style="float: left;width: 50%"><label>Comisión</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.comision}" value="comisión" readonly="readonly"/>
+            <input th:value="${comercial.comision}" readonly="readonly"/>
         </div>
     </div>
 
+    <div class="clearfix"><hr/></div>
 
+    <div style="margin-top: 20px;">
+        <h2>Pedidos del Comercial</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID Pedido</th>
+                <th>Total</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pedido : ${listaPedidos}">
+                <td th:text="${pedido.id}"></td>
+                <td th:text="${pedido.total}"></td>
+                <td th:text="${pedido.fecha}"></td>
+                <td>
+                    <a th:href="@{/clientes/{id}(id=${pedido.idCliente})}"
+                       target="_blank"
+                       th:text="${pedido.nombreCliente}">
+                    </a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(listaPedidos)}">
+                <td colspan="4">Este comercial no tiene pedidos registrados.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-</body>
-</html>
 </body>
 </html>
