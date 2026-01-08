@@ -5,6 +5,7 @@ import org.iesbelen.dao.PedidoDAO;
 import org.iesbelen.modelo.Comercial;
 import org.iesbelen.modelo.PedidoDTO;
 import org.springframework.stereotype.Service;
+import org.iesbelen.modelo.*;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class ComercialService {
 
     private ComercialDAO comercialDAO;
     private PedidoDAO pedidoDAO;
+
 
     public ComercialService(ComercialDAO comercialDAO, PedidoDAO pedidoDAO) {
         this.comercialDAO = comercialDAO;
@@ -41,6 +43,33 @@ public class ComercialService {
 
     public List<PedidoDTO> obtenerPedidosPorComercial(Integer id) {
         return pedidoDAO.findPorComercialConCliente(id);
+    }
+
+    public ComercialDTO obtenerDetalleConEstadisticas(Integer id) {
+        Comercial comercial = comercialDAO.find(id).orElse(null);
+        if (comercial == null) return null;
+
+        List<PedidoDTO> pedidos = pedidoDAO.findPorComercialConCliente(id);
+
+        ComercialDTO dto = new ComercialDTO();
+        dto.setId(comercial.getId());
+        dto.setNombre(comercial.getNombre());
+        dto.setApellido1(comercial.getApellido1());
+        dto.setApellido2(comercial.getApellido2());
+        dto.setComision(comercial.getComision());
+        dto.setListaPedidos(pedidos);
+
+        // REALIZAR EL CÁLCULO
+        double total = pedidos.stream()
+                .mapToDouble(PedidoDTO::getTotal)
+                .sum();
+        double media = pedidos.isEmpty() ? 0.0 : total / pedidos.size();
+
+        // ASIGNAR AL DTO (Paso crítico)
+        dto.setTotalPedidos(total);
+        dto.setMediaPedidos(media);
+
+        return dto;
     }
 
 }

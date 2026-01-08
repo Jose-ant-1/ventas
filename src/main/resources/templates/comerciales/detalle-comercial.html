@@ -44,35 +44,44 @@
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%"><label>Código</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.id}" readonly="readonly"/>
+            <input th:value="${comercialDTO.id}" readonly="readonly"/>
         </div>
     </div>
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%"><label>Nombre</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.nombre}" readonly="readonly"/>
+            <input th:value="${comercialDTO.nombre}" readonly="readonly"/>
         </div>
     </div>
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%"><label>Apellido 1</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.apellido1}" readonly="readonly"/>
+            <input th:value="${comercialDTO.apellido1}" readonly="readonly"/>
         </div>
     </div>
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%"><label>Apellido 2</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.apellido2}" readonly="readonly"/>
+            <input th:value="${comercialDTO.apellido2}" readonly="readonly"/>
         </div>
     </div>
     <div style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 50%"><label>Comisión</label></div>
         <div style="float: none;width: auto;overflow: hidden;">
-            <input th:value="${comercial.comision}" readonly="readonly"/>
+            <input th:value="${comercialDTO.comision}" readonly="readonly"/>
         </div>
     </div>
 
     <div class="clearfix"><hr/></div>
+
+    <div th:if="${comercialDTO != null}">
+        <p>Total Pedidos:
+            <span th:text="${#numbers.formatDecimal(comercialDTO.totalPedidos, 1, 2)}">0,00</span> €
+        </p>
+        <p>Media:
+            <span th:text="${#numbers.formatDecimal(comercialDTO.mediaPedidos, 1, 2)}">0,00</span> €
+        </p>
+    </div>
 
     <div style="margin-top: 20px;">
         <h2>Pedidos del Comercial</h2>

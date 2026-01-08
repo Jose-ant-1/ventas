@@ -2,6 +2,7 @@ package org.iesbelen.controlador;
 
 
 import org.iesbelen.modelo.Comercial;
+import org.iesbelen.modelo.ComercialDTO;
 import org.iesbelen.modelo.PedidoDTO;
 import org.iesbelen.service.ComercialService;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,7 @@ import java.util.List;
 @RequestMapping("/comerciales")
 public class ComercialController {
 
-
     private ComercialService comercialService;
-
 
     public ComercialController(ComercialService comercialService) {
         this.comercialService = comercialService;
@@ -32,11 +31,14 @@ public class ComercialController {
 
     @GetMapping("/{id}")
     public String detalle(Model model, @PathVariable Integer id) {
-        Comercial comercial = comercialService.one(id);
-        List<PedidoDTO> pedidos =  comercialService.obtenerPedidosPorComercial(id);
+        ComercialDTO comercialDTO = comercialService.obtenerDetalleConEstadisticas(id);
 
-        model.addAttribute("comercial", comercial);
-        model.addAttribute("listaPedidos", pedidos);
+        // Aquí lo guardas como "comercialDTO"
+        model.addAttribute("comercialDTO", comercialDTO);
+
+        // También asegúrate de pasar la lista de pedidos si el HTML la usa aparte
+        model.addAttribute("listaPedidos", comercialDTO.getListaPedidos());
+
         return "/comerciales/detalle-comercial";
     }
 
