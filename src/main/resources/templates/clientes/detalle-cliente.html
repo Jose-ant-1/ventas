@@ -90,6 +90,25 @@
             <input th:value="${cliente.categoria}" value="categoria" readonly="readonly"/>
         </div>
     </div>
+    <div style="margin-top: 30px;">
+        <h3>Comerciales que han atendido a este cliente</h3>
+        <table border="1" style="width: 100%; border-collapse: collapse;">
+            <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Número de Pedidos realizados</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comercial : ${cliente.listaComerciales}">
+                <td th:text="${comercial.nombre}"></td>
+                <td th:text="${comercial.apellido1 + ' ' + (comercial.apellido2 ?: '')}"></td>
+                <td th:text="${#numbers.formatInteger(comercial.totalPedidos, 0)}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 

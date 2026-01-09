@@ -1,5 +1,6 @@
 package org.iesbelen.service;
 
+import lombok.NoArgsConstructor;
 import org.iesbelen.dao.ComercialDAO;
 import org.iesbelen.dao.PedidoDAO;
 import org.iesbelen.modelo.Comercial;
@@ -10,6 +11,7 @@ import org.iesbelen.modelo.*;
 import java.util.List;
 
 @Service
+@NoArgsConstructor
 public class ComercialService {
 
     private ComercialDAO comercialDAO;
@@ -59,13 +61,11 @@ public class ComercialService {
         dto.setComision(comercial.getComision());
         dto.setListaPedidos(pedidos);
 
-        // REALIZAR EL CÁLCULO
         double total = pedidos.stream()
                 .mapToDouble(PedidoDTO::getTotal)
                 .sum();
         double media = pedidos.isEmpty() ? 0.0 : total / pedidos.size();
 
-        // ASIGNAR AL DTO (Paso crítico)
         dto.setTotalPedidos(total);
         dto.setMediaPedidos(media);
 

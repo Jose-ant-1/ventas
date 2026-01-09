@@ -2,6 +2,7 @@ package org.iesbelen.controlador;
 
 import java.util.List;
 import org.iesbelen.modelo.Cliente;
+import org.iesbelen.modelo.ClienteDTO;
 import org.iesbelen.modelo.Comercial;
 import org.iesbelen.service.ClienteService;
 import org.iesbelen.service.ComercialService;
@@ -38,8 +39,11 @@ public class ClienteController {
 	}
     @GetMapping("/{id}")
     public String detalle(Model model, @PathVariable Integer id) {
-        Cliente cliente = clienteService.one(id);
+        /*Cliente cliente = clienteService.one(id);
         model.addAttribute("cliente", cliente);
+        return "/clientes/detalle-cliente";*/
+        ClienteDTO clienteDTO = clienteService.detalleCliente(id);
+        model.addAttribute("cliente", clienteDTO);
         return "/clientes/detalle-cliente";
     }
 

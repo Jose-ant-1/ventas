@@ -14,4 +14,5 @@ public interface PedidoDAO {
     public void update(Pedido pedido);
     public void delete(long id);
     public List<PedidoDTO> findPorComercialConCliente(int idComercial);
+
 }

@@ -33,10 +33,8 @@ public class ComercialController {
     public String detalle(Model model, @PathVariable Integer id) {
         ComercialDTO comercialDTO = comercialService.obtenerDetalleConEstadisticas(id);
 
-        // Aquí lo guardas como "comercialDTO"
         model.addAttribute("comercialDTO", comercialDTO);
 
-        // También asegúrate de pasar la lista de pedidos si el HTML la usa aparte
         model.addAttribute("listaPedidos", comercialDTO.getListaPedidos());
 
         return "/comerciales/detalle-comercial";

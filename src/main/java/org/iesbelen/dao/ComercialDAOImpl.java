@@ -5,8 +5,10 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.NoArgsConstructor;
 import org.iesbelen.modelo.Cliente;
 import org.iesbelen.modelo.Comercial;
+import org.iesbelen.modelo.ComercialDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -21,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Repository
 //Utilizo lombok para generar el constructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class ComercialDAOImpl implements ComercialDAO {
 
 	//JdbcTemplate se inyecta por el constructor de la clase automáticamente
@@ -104,5 +107,26 @@ UPDATE comercial SET nombre = ?, apellido1 = ?, apellido2 = ?, comisión = ? WHE
 
         log.info("Delete de comercial con {} registros eliminados.", rows);
 	}
+
+    public List<ComercialDTO> findComercialesPorCliente(int idCliente) {
+        String sql = """
+            SELECT co.*, COUNT(p.id) AS total_pedidos
+            FROM comercial co
+            INNER JOIN pedido p ON co.id = p.id_comercial
+            WHERE p.id_cliente = ?
+            GROUP BY co.id
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            ComercialDTO dto = new ComercialDTO();
+            dto.setId(rs.getInt("id"));
+            dto.setNombre(rs.getString("nombre"));
+            dto.setApellido1(rs.getString("apellido1"));
+            dto.setApellido2(rs.getString("apellido2"));
+            // Reutilizamos totalPedidos del DTO para el conteo
+            dto.setTotalPedidos(rs.getDouble("total_pedidos"));
+            return dto;
+        }, idCliente);
+    }
 
 }
