@@ -11,7 +11,6 @@ import org.iesbelen.modelo.*;
 import java.util.List;
 
 @Service
-@NoArgsConstructor
 public class ComercialService {
 
     private ComercialDAO comercialDAO;

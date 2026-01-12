@@ -22,15 +22,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 //Utilizo lombok para generar el constructor
-@AllArgsConstructor
-@NoArgsConstructor
 public class ComercialDAOImpl implements ComercialDAO {
 
 	//JdbcTemplate se inyecta por el constructor de la clase automáticamente
 	//
     @Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
+    public ComercialDAOImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
 	@Override
 	public void create(Comercial cliente) {
 		String sqlInsert = """
