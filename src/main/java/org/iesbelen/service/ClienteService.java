@@ -9,7 +9,6 @@ import org.iesbelen.dao.ComercialDAO;
 import org.iesbelen.mapstruct.ClienteMapper;
 import org.iesbelen.modelo.Cliente;
 import org.iesbelen.modelo.ClienteDTO;
-import org.iesbelen.modelo.Comercial;
 import org.iesbelen.modelo.ComercialDTO;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,8 @@ import org.springframework.stereotype.Service;
 public class ClienteService {
 
 	private final ClienteDAO clienteDAO;
-    private final ComercialDAO comercialDAO; // Añadir esto
-    private final ClienteMapper clienteMapper; // Añadir esto
+    private final ComercialDAO comercialDAO;
+    private final ClienteMapper clienteMapper;
 	//Se utiliza inyección automática por constructor del framework Spring.
 	//Por tanto, se puede omitir la anotación Autowired
 	//@Autowired
@@ -32,17 +31,14 @@ public class ClienteService {
         Optional<Cliente> optCli = clienteDAO.find(id);
 
         if (optCli.isPresent()) {
-            // 1. Usamos la "funcionalidad" de MapStruct para pasar datos básicos
             ClienteDTO dto = clienteMapper.clienteAClienteDTO(optCli.get());
 
             // 2. Cargamos la funcionalidad extra: la lista de comerciales
-            // Debes tener este método definido en ComercialDAO e implementado en ComercialDAOImpl
             List<ComercialDTO> comerciales = comercialDAO.findComercialesPorCliente(id);
             dto.setListaComerciales(comerciales);
 
             return dto;
         }
-
         return null;
     }
 
@@ -62,7 +58,7 @@ public class ClienteService {
 
     }
 
-    public void newCliete(Cliente cliente) {
+    public void newCliente(Cliente cliente) {
         clienteDAO.create(cliente);
     }
 
