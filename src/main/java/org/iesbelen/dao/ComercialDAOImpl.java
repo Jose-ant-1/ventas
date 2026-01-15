@@ -34,7 +34,7 @@ public class ComercialDAOImpl implements ComercialDAO {
     }
 
 	@Override
-	public void create(Comercial cliente) {
+	public void create(Comercial comercial) {
 		String sqlInsert = """
                 INSERT INTO comercial (nombre,apellido1,apellido2,comisión) VALUES (?,?,?,?)""";
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -42,14 +42,14 @@ public class ComercialDAOImpl implements ComercialDAO {
         int rows = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sqlInsert, new String[]{"id"});
             int idx = 1;
-            ps.setString(idx++, cliente.getNombre());
-            ps.setString(idx++, cliente.getApellido1());
-            ps.setString(idx++, cliente.getApellido2());
-            ps.setFloat(idx++, cliente.getComision());
+            ps.setString(idx++, comercial.getNombre());
+            ps.setString(idx++, comercial.getApellido1());
+            ps.setString(idx++, comercial.getApellido2());
+            ps.setBigDecimal(idx++, comercial.getComision());
             return ps;
         }, keyHolder);
 
-        cliente.setId(keyHolder.getKey().intValue());
+        comercial.setId(keyHolder.getKey().intValue());
 
         log.info("Insertados {} registros.", rows);
 
@@ -66,7 +66,7 @@ public class ComercialDAOImpl implements ComercialDAO {
                                                                                                         rs.getString("nombre"),
                                                                                                         rs.getString("apellido1"),
                                                                                                         rs.getString("apellido2"),
-                                                                                                        rs.getFloat("comisión"))
+                                                                                                        rs.getBigDecimal("comisión"))
                 						 	
                                                           );
 		
@@ -85,21 +85,21 @@ public class ComercialDAOImpl implements ComercialDAO {
                                 rs.getString("nombre"),
                                 rs.getString("apellido1"),
                                 rs.getString("apellido2"),
-                                rs.getFloat("comisión")), id);
+                                rs.getBigDecimal("comisión")), id);
 
 
         return comerciales.stream().findFirst();
 	}
 
 	@Override
-	public void update(Comercial cliente) {
+	public void update(Comercial comercial) {
 		int rows = jdbcTemplate.update("""
 UPDATE comercial SET nombre = ?, apellido1 = ?, apellido2 = ?, comisión = ? WHERE id = ?""",
-                cliente.getNombre(),
-                cliente.getApellido1(),
-                cliente.getApellido2(),
-                cliente.getComision(),
-                cliente.getId());
+                comercial.getNombre(),
+                comercial.getApellido1(),
+                comercial.getApellido2(),
+                comercial.getComision(),
+                comercial.getId());
     log.info("Update de comerciales con {} registros acutalizados.", rows);
 	}
 

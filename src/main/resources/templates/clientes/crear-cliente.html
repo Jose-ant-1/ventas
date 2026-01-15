@@ -82,9 +82,20 @@
                 Categoría
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
-                <input th:field="*{categoria}" />
+                <input th:field="*{categoria}" type="number"/>
                 <ul th:if="${#fields.hasErrors('categoria')}">
                     <li th:each="err : ${#fields.errors('categoria')}" th:text="${err}" class="error" />
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 6px;" class="clearfix">
+            <div style="float: left;width: 50%">
+                email
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input th:field="*{email}" type="email"/>
+                <ul th:if="${#fields.hasErrors('email')}">
+                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" />
                 </ul>
             </div>
         </div>

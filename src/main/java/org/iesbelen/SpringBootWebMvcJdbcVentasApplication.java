@@ -1,5 +1,6 @@
 package org.iesbelen;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.iesbelen.dao.ClienteDAO;
@@ -58,7 +59,7 @@ public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner{
 		}
 		
 		// Como es un cliente nuevo a persistir, id a 0
-		Cliente clienteNew = new Cliente(0, "Jose M", "Martín", null, "Málaga", 100);
+		Cliente clienteNew = new Cliente(0, "Jose M", "Martín", null, "Málaga", 100, "Jose@mail.com");
 		
 		//create actualiza el id
 		clienteDAO.create(clienteNew);
@@ -107,7 +108,7 @@ public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner{
         }
 
 // 4. CREAR uno nuevo
-        Comercial comercialNew = new Comercial(0, "Ana", "Gómez", "alcazar", 0.29f); // Asumiendo estructura de Comercial
+        Comercial comercialNew = new Comercial(0, "Ana", "Gómez", "alcazar", new BigDecimal("0.29")); // Asumiendo estructura de Comercial
         comercialDAO.create(comercialNew);
         log.info("Comercial nuevo con id = {}", comercialNew.getId());
 

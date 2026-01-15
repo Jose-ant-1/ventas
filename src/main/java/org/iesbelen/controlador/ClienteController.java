@@ -74,9 +74,13 @@ public class ClienteController {
     }
 
     @PostMapping("/editar/{id}")
-    public RedirectView submitEditar(@ModelAttribute("cliente")  Cliente cliente) {
+    public String submitEditar(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("cliente", cliente);
+            return "clientes/editar-cliente";
+        }
         clienteService.replaceCliente(cliente);
-        return new RedirectView("/clientes");
+        return "redirect:/clientes";
     }
 
     @PostMapping("/borrar/{id}")

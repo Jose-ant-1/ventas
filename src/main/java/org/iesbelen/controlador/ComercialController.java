@@ -1,13 +1,16 @@
 package org.iesbelen.controlador;
 
 
+import jakarta.validation.Valid;
 import org.iesbelen.modelo.Comercial;
 import org.iesbelen.modelo.ComercialDTO;
 import org.iesbelen.modelo.PedidoDTO;
 import org.iesbelen.service.ComercialService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
@@ -48,9 +51,14 @@ public class ComercialController {
     }
 
     @PostMapping("/crear")
-    public RedirectView submitCrear(@ModelAttribute("comercial") Comercial comercial) {
+    public String submitCrear(@Valid @ModelAttribute("comercial") Comercial comercial, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+            return "/comerciales/crear-comercial";
+        }
+
         comercialService.newComercial(comercial);
-        return new RedirectView("/comerciales");
+        return  "redirect:/comerciales";
     }
 
     @GetMapping("/editar/{id}")
@@ -61,9 +69,13 @@ public class ComercialController {
     }
 
     @PostMapping("/editar/{id}")
-    public RedirectView submitEditar(@ModelAttribute("comercial") Comercial comercial) {
+    public String submitEditar(@Valid @ModelAttribute("comercial") Comercial comercial, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+            return "comerciales/editar-comercial";
+        }
         comercialService.replaceComercial(comercial);
-        return new RedirectView("/comerciales");
+        return  "redirect:/comerciales";
     }
 
     @PostMapping("/borrar/{id}")

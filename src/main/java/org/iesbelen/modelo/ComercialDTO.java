@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -15,7 +16,7 @@ public class ComercialDTO {
     private String nombre;
     private String apellido1;
     private String apellido2;
-    private float comision;
+    private BigDecimal comision;
 
     private List<PedidoDTO> listaPedidos;
     private double totalPedidos;

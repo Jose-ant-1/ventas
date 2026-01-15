@@ -45,6 +45,9 @@
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input id="nombre" th:field="*{nombre}"/>
+                <ul th:if="${#fields.hasErrors('nombre')}">
+                    <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error" />
+                </ul>
             </div>
         </div>
 
@@ -54,6 +57,9 @@
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input id="apellido1" th:field="*{apellido1}"/>
+                <ul th:if="${#fields.hasErrors('apellido1')}">
+                    <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error" />
+                </ul>
             </div>
         </div>
 
@@ -63,6 +69,9 @@
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input id="apellido2" th:field="*{apellido2}"/>
+                <ul th:if="${#fields.hasErrors('apellido2')}">
+                    <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error" />
+                </ul>
             </div>
         </div>
 
@@ -72,6 +81,9 @@
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input id="ciudad" th:field="*{ciudad}"/>
+                <ul th:if="${#fields.hasErrors('ciudad')}">
+                    <li th:each="err : ${#fields.errors('ciudad')}" th:text="${err}" class="error" />
+                </ul>
             </div>
         </div>
 
@@ -81,6 +93,21 @@
             </div>
             <div style="float: none;width: auto;overflow: hidden;">
                 <input id="categoria" th:field="*{categoria}"/>
+                <ul th:if="${#fields.hasErrors('categoria')}">
+                    <li th:each="err : ${#fields.errors('categoria')}" th:text="${err}" class="error" />
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 6px;" class="clearfix">
+            <div style="float: left;width: 50%">
+                <label for="mail">mail</label>
+            </div>
+            <div style="float: none;width: auto;overflow: hidden;">
+                <input id="mail" th:field="*{email}"/>
+                <ul th:if="${#fields.hasErrors('email')}">
+                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" />
+                </ul>
             </div>
         </div>
 

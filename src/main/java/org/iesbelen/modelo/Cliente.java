@@ -34,9 +34,12 @@ public class Cliente {
     @Size(max=50, message = "Nombre como máximo de 50 caracteres.")
 	private String ciudad;
 
+
     @Min(value=100, message = "categoría debe ser al menos 0.")
     @Max(value=1000, message = "categoría no debe ser mayor de 1000.")
     private int categoria;
 
+    @Email(message = "Formato de email incorrecto. Ha introducido '${validatedValue}'", regexp="^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]{2,5}")
+    private String email;
 
 }
