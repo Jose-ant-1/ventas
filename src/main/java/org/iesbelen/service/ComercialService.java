@@ -27,7 +27,7 @@ public class ComercialService {
     }
 
     public Comercial one(Integer id) {
-        return comercialDAO.find(id).orElse(null);
+        return comercialDAO.find(id).orElseThrow(() -> new RuntimeException("Comercial con ID " + id + " no encontrado"));
     }
 
     public void newComercial (Comercial comercial) {
@@ -47,8 +47,7 @@ public class ComercialService {
     }
 
     public ComercialDTO obtenerDetalleConEstadisticas(Integer id) {
-        Comercial comercial = comercialDAO.find(id).orElse(null);
-        if (comercial == null) return null;
+        Comercial comercial = comercialDAO.find(id).orElseThrow(() -> new RuntimeException("Comercial con ID " + id + " no encontrado"));
 
         List<PedidoDTO> pedidos = pedidoDAO.findPorComercialConCliente(id);
 

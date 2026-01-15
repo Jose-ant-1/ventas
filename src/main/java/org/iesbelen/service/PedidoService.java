@@ -21,12 +21,8 @@ public class PedidoService {
     }
 
     public Pedido one(Integer id) {
-        Optional<Pedido> optPedido = pedidoDAO.find(id);
-        if (optPedido.isPresent()) {
-            return optPedido.get();
-        } else {
-            return null;
-        }
+        return pedidoDAO.find(id)
+                .orElseThrow(() -> new RuntimeException("Pedido con ID: " + id + " no encontrado"));
     }
 
     public void newPedido (Pedido pedido) {

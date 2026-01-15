@@ -22,20 +22,21 @@ public class Cliente {
     @Size(max=30, message = "Nombre como máximo de 30 caracteres.")
 	private String nombre;
 
-    @NotNull(message = "Por favor, nombre no puede ser nulo.")
+    @NotNull(message = "Por favor, apellido 1 no puede ser nulo.")
     @NotBlank(message = "Por favor, introduzca apellido 1.")
-    @Size(max=30, message = "Nombre como máximo de 30 caracteres.")
+    @Size(max=30, message = "apellido 1 como máximo de 30 caracteres.")
 	private String apellido1;
 
     private String apellido2;
 
-    @NotNull(message = "Por favor, nombre no puede ser nulo.")
+    @NotNull(message = "Por favor, ciudad no puede ser nulo.")
     @NotBlank(message = "Por favor, introduzca a ciudad.")
-    @Size(max=50, message = "Nombre como máximo de 50 caracteres.")
+    @Size(max=50, message = "Ciudad como máximo de 50 caracteres.")
 	private String ciudad;
 
 
-    @Min(value=100, message = "categoría debe ser al menos 0.")
+    @NotNull(message = "Por favor, categoría no puede ser nulo.")
+    @Min(value=100, message = "categoría debe ser al menos 100.")
     @Max(value=1000, message = "categoría no debe ser mayor de 1000.")
     private int categoria;
 

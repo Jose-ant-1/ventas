@@ -28,18 +28,17 @@ public class ClienteService {
 	}*/
 
     public ClienteDTO detalleCliente(Integer id) {
-        Optional<Cliente> optCli = clienteDAO.find(id);
+        Cliente cliente = clienteDAO.find(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado con ID: "));
 
-        if (optCli.isPresent()) {
-            ClienteDTO dto = clienteMapper.clienteAClienteDTO(optCli.get());
 
-            // 2. Cargamos la funcionalidad extra: la lista de comerciales
+            ClienteDTO dto = clienteMapper.clienteAClienteDTO(cliente);
+
             List<ComercialDTO> comerciales = comercialDAO.findComercialesPorCliente(id);
             dto.setListaComerciales(comerciales);
 
             return dto;
-        }
-        return null;
+
     }
 
 	public List<Cliente> listAll() {
@@ -49,13 +48,8 @@ public class ClienteService {
 	}
 
     public Cliente one(Integer id) {
-        Optional<Cliente> optCli = clienteDAO.find(id);
-        if (optCli.isPresent()) {
-            return optCli.get();
-        } else  {
-            return null;
-        }
-
+        return clienteDAO.find(id)
+                .orElseThrow(() -> new RuntimeException("Cliente con ID " + id + " no encontrado"));
     }
 
     public void newCliente(Cliente cliente) {
